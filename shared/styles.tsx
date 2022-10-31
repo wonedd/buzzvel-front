@@ -7,9 +7,7 @@ export const globalStyles = (
             body {
                 box-sizing: border-box;
 
-                max-width: 600px;
-
-                padding: 8px;
+                padding: 0;
                 margin: 0;
 
                 background: #222;

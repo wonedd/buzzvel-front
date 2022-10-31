@@ -6,6 +6,7 @@ export const Container = styled.form`
     gap: 32px;
 
     width: 100%;
+    max-width: 600px;
 `;
 
 export const Title = styled.h1`

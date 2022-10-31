@@ -1,5 +1,10 @@
+import { Container } from '../../shared/home.styles';
 import { Form } from '../components/Form';
 
 export default function Home() {
-    return <Form />;
+    return (
+        <Container>
+            <Form />
+        </Container>
+    );
 }

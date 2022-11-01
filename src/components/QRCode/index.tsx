@@ -1,7 +1,7 @@
 import { useQRCode } from 'next-qrcode';
 import { Container, QRBox, SubTitle, Title } from './styles';
 
-export function QRCode({ name }: { name: string }) {
+export function QRCode({ name }: { name: string | undefined }) {
     const { Image } = useQRCode();
 
     return (

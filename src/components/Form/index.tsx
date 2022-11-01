@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 import { Button } from '../Button';
 import { Input } from '../Input';
@@ -16,21 +18,28 @@ export function Form() {
     const { push } = useRouter();
     const { register, handleSubmit } = useForm();
     const [isLoading, setIsLoading] = useState(false);
+    const { signIn, isAuthenticated } = useContext(AuthContext);
 
     const onHandleSubmit = async (data: FormData) => {
+        setIsLoading(true);
         try {
-            setIsLoading(true);
-
-            const response = await api.post('/', {
+            await api.post('/', {
                 linkedinUrl: data.linkedinUrl,
                 githubUrl: data.githubUrl,
                 name: data.name,
             });
 
-            if (response.status === 201) {
+            await signIn({
+                linkedinUrl: data.linkedinUrl,
+                githubUrl: data.githubUrl,
+                name: data.name,
+            });
+
+            if (isAuthenticated) {
                 push('/qrcode');
             }
         } catch (err) {
+            toast.error('error');
             console.log(err);
             push('/');
         } finally {
@@ -38,7 +47,7 @@ export function Form() {
         }
     };
     return (
-        <Container onSubmit={handleSubmit(() => onHandleSubmit)}>
+        <Container onSubmit={handleSubmit(onHandleSubmit)}>
             <Title>QR Code Image Generator</Title>
             <Input
                 name="linkedinUrl"

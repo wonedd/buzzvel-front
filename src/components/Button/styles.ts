@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const Container = styled.button`
     all: unset;
-    height: 48px;
+    height: 40px;
 
     text-align: center;
 

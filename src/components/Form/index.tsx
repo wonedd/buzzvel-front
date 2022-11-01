@@ -38,7 +38,7 @@ export function Form() {
         }
     };
     return (
-        <Container onSubmit={handleSubmit(onHandleSubmit)}>
+        <Container onSubmit={handleSubmit(() => onHandleSubmit)}>
             <Title>QR Code Image Generator</Title>
             <Input
                 name="linkedinUrl"

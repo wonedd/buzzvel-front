@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 import { api } from '../services/api';
 
 type User = {
@@ -96,7 +97,9 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
                 Router.push('/qrcode');
             } catch (err) {
-                console.log(err);
+                if (err instanceof AxiosError) {
+                    toast.error(err.response?.data.message);
+                }
             } finally {
                 setIsLoading(false);
             }

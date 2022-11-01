@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -39,8 +40,9 @@ export function Form() {
                 push('/qrcode');
             }
         } catch (err) {
-            toast.error('error');
-            console.log(err);
+            if (err instanceof AxiosError) {
+                toast.error(err.response?.data.message);
+            }
             push('/');
         } finally {
             setIsLoading(false);

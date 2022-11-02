@@ -43,7 +43,7 @@ export const AuthContext = createContext({} as AuthContextData);
 export function signOut(): void {
     destroyCookie(undefined, 'buzzvel.token');
 
-    Router.push('/Success');
+    Router.push('/');
 }
 
 export function AuthProvider({ children }: AuthProviderProps): JSX.Element {

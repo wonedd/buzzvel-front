@@ -10,7 +10,7 @@ export function QRCode({ name }: { name: string | undefined }) {
             <QRBox>
                 <SubTitle>Scan Me</SubTitle>
                 <Image
-                    text="https://buzzvel-front.vercel.app/Sucess"
+                    text="https://buzzvel-front.vercel.app/Success"
                     options={{
                         type: 'image/jpeg',
                         quality: 0.3,

@@ -62,12 +62,10 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
                 })
                 .catch(() => {
                     toast.error(
-                        'Vish, acho que alguém puxou um cabo aqui. Segura ai um pouquinho enquanto resolvo isso e tente novamente em uns minutinhos beleza?',
+                        'Oops! Something went wrong. Please try again later.',
                     );
                     signOut();
                 });
-        } else {
-            signOut();
         }
     }, []);
 
@@ -93,7 +91,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
                 api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-                toast.success('Usuário criado com sucesso! 🚀');
+                toast.success('Your card is ready 🚀');
 
                 Router.push('/qrcode');
             } catch (err) {

@@ -1,7 +1,7 @@
 export function Sucess() {
     return (
         <div>
-            <h1>Sucess</h1>
+            <h1>Te amo</h1>
         </div>
     );
 }

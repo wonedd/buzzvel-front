@@ -4,6 +4,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Success() {
     const { user } = useContext(AuthContext);
+    console.log('🚀 ~ file: index.tsx ~ line 7 ~ Success ~ user', user);
     const { push } = useRouter();
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

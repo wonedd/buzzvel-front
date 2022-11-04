@@ -26,12 +26,14 @@ export function Form() {
         setIsLoading(true);
         try {
             const response = await api.post('/', {
+                // create user
                 linkedinUrl: data.linkedinUrl,
                 githubUrl: data.githubUrl,
                 name: data.name,
             });
 
             await create({
+                // create session
                 id: response.data.id,
             });
         } catch (err) {

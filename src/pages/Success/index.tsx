@@ -15,12 +15,12 @@ interface User {
 }
 export default function Success() {
     const [user, setUser] = useState<User>();
-    const { query } = useRouter();
+    const { query } = useRouter(); // access query from next router
 
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await api.get(`/user/${query.token}`);
+                const response = await api.get(`/user/${query.token}`); // get the user by token
                 setUser(response.data);
             } catch (err) {
                 if (err instanceof AxiosError) {
@@ -29,6 +29,7 @@ export default function Success() {
             }
         };
         if (query.token) {
+            // check if token exists because the router runs first than the useEffect
             getUser();
         }
     }, [query.token]);

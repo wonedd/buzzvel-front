@@ -32,7 +32,6 @@ interface AuthContextData {
     isLoading: boolean;
     isAuthenticated: boolean;
     user: User | undefined;
-    token: string | undefined;
 }
 
 type AuthProviderProps = {
@@ -52,7 +51,6 @@ export function signOut(): void {
 export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     const [loggedAccount, setLoggedAccount] = useState<User>();
     const [isLoading, setIsLoading] = useState(false);
-    const [mobileToken, setMobileToken] = useState<string>();
 
     const isAuthenticated = !!loggedAccount;
 
@@ -78,7 +76,6 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         const { 'buzzvel.token': token } = parseCookies();
 
         if (token) {
-            setMobileToken(token);
             api.get('/')
                 .then(response => {
                     setLoggedAccount(response.data);
@@ -135,7 +132,6 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
             isAuthenticated,
             isLoading,
             user: loggedAccount,
-            token: mobileToken,
         }),
         [isAuthenticated, signIn, loggedAccount, isLoading, signOut],
     );

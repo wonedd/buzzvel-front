@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { AuthContext } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 
 interface User {
@@ -13,12 +13,12 @@ interface User {
 }
 export default function Success() {
     const [user, setUser] = useState<User>();
-    const { token } = useContext(AuthContext);
+    const { query } = useRouter();
 
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await api.get(`/user/${token}`);
+                const response = await api.get(`/user/${query.token}`);
                 setUser(response.data);
             } catch (err) {
                 if (err instanceof AxiosError) {
@@ -27,7 +27,7 @@ export default function Success() {
             }
         };
         getUser();
-    }, [token]);
+    }, []);
 
     const { push } = useRouter();
     return (

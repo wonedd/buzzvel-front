@@ -1,11 +1,10 @@
 import { useQRCode } from 'next-qrcode';
-import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import { parseCookies } from 'nookies';
 import { Container, QRBox, SubTitle, Title } from './styles';
 
 export function QRCode({ name }: { name: string | undefined }) {
     const { Image } = useQRCode();
-    const { token } = useContext(AuthContext);
+    const { 'buzzvel-token': token } = parseCookies();
 
     return (
         <Container>

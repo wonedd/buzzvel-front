@@ -1,18 +1,20 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.main`
-    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 32px;
+
+    padding: 8px;
 `;
 
 export const Content = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    max-width: 400px;
 `;
 
 export const Title = styled.h1`
@@ -23,4 +25,5 @@ export const Title = styled.h1`
 export const Text = styled.p`
     font-size: 1.2rem;
     font-weight: 500;
+    max-width: 400px;
 `;

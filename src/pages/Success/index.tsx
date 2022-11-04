@@ -37,6 +37,7 @@ export default function Success() {
     return (
         <Container>
             <Title>Hello my name is {user?.name}</Title>
+            <Title>My history:</Title>
             <Text>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.

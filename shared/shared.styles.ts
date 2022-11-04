@@ -19,3 +19,8 @@ export const Title = styled.h1`
     align-self: center;
     font-size: 1.5rem;
 `;
+
+export const Text = styled.p`
+    font-size: 1.2rem;
+    font-weight: 500;
+`;

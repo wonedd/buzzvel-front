@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Container, Content, Title } from '../../../shared/shared.styles';
+import { Container, Content, Title, Text } from '../../../shared/shared.styles';
 import { Button } from '../../components/Button';
 import { api } from '../../services/api';
 
@@ -36,7 +36,11 @@ export default function Success() {
     const { push } = useRouter();
     return (
         <Container>
-            <Title>{user?.name}</Title>
+            <Title>Hello my name is {user?.name}</Title>
+            <Text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Text>
             <Content>
                 <Button
                     type="button"

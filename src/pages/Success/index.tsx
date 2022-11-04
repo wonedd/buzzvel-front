@@ -26,8 +26,10 @@ export default function Success() {
                 }
             }
         };
-        getUser();
-    }, []);
+        if (query.token) {
+            getUser();
+        }
+    }, [query.token]);
 
     const { push } = useRouter();
     return (

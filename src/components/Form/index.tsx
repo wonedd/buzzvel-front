@@ -20,7 +20,7 @@ export function Form() {
     const { push } = useRouter();
     const { register, handleSubmit } = useForm();
     const [isLoading, setIsLoading] = useState(false);
-    const { create, isAuthenticated } = useContext(AuthContext);
+    const { create } = useContext(AuthContext);
 
     const onHandleSubmit = async (data: FormData) => {
         setIsLoading(true);
@@ -34,10 +34,6 @@ export function Form() {
             await create({
                 id: response.data.id,
             });
-
-            if (isAuthenticated) {
-                push('/Qrcode');
-            }
         } catch (err) {
             if (err instanceof AxiosError) {
                 toast.error(err.response?.data.message);

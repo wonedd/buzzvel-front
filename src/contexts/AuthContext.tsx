@@ -70,7 +70,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
             toast.success('Your card is ready 🚀');
 
-            Router.push('/Qrcode');
+            Router.push('/qrcode');
         } catch (err) {
             if (err instanceof AxiosError) {
                 toast.error(err.response?.data.message);

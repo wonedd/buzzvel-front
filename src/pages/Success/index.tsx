@@ -3,6 +3,8 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Container, Content, Title } from '../../../shared/shared.styles';
+import { Button } from '../../components/Button';
 import { api } from '../../services/api';
 
 interface User {
@@ -33,22 +35,22 @@ export default function Success() {
 
     const { push } = useRouter();
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h1>{user?.name}</h1>
-            <div style={{ display: 'flex', gap: '8' }}>
-                <button
+        <Container>
+            <Title>{user?.name}</Title>
+            <Content>
+                <Button
                     type="button"
                     onClick={() => push(`${user?.githubUrl}`)}
                 >
                     Github
-                </button>
-                <button
+                </Button>
+                <Button
                     type="button"
                     onClick={() => push(`${user?.linkedinUrl}`)}
                 >
                     LinkedIn
-                </button>
-            </div>
-        </div>
+                </Button>
+            </Content>
+        </Container>
     );
 }

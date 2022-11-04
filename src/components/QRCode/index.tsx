@@ -5,7 +5,6 @@ import { Container, QRBox, SubTitle, Title } from './styles';
 export function QRCode({ name }: { name: string | undefined }) {
     const { Image } = useQRCode();
     const { 'buzzvel.token': token } = parseCookies();
-    console.log('🚀 ~ file: index.tsx ~ line 8 ~ QRCode ~ token', token);
 
     return (
         <Container>
@@ -13,7 +12,7 @@ export function QRCode({ name }: { name: string | undefined }) {
             <QRBox>
                 <SubTitle>Scan Me</SubTitle>
                 <Image
-                    text={`https://buzzvel-front.vercel.app/Success?token=${token}`}
+                    text={`https://buzzvel-front.vercel.app/success?token=${token}`}
                     options={{
                         type: 'image/jpeg',
                         quality: 0.3,

@@ -4,11 +4,10 @@ import {
     createContext,
     ReactNode,
     useCallback,
-    useEffect,
     useMemo,
     useState,
 } from 'react';
-import { destroyCookie, parseCookies, setCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { api } from '../services/api';
@@ -25,7 +24,7 @@ type ISignInData = {
 };
 
 interface AuthContextData {
-    signIn: (credentials: ISignInData) => Promise<void>;
+    create: (credentials: ISignInData) => Promise<void>;
     signOut: () => void;
     isLoading: boolean;
     isAuthenticated: boolean;
@@ -50,7 +49,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
     const isAuthenticated = !!loggedAccount;
 
-    const signIn = useCallback(async ({ id }: ISignInData) => {
+    const create = useCallback(async ({ id }: ISignInData) => {
         try {
             setIsLoading(true);
 
@@ -83,13 +82,13 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
     const authContextData: AuthContextData = useMemo(
         () => ({
-            signIn,
+            create,
             signOut,
             isAuthenticated,
             isLoading,
             user: loggedAccount,
         }),
-        [isAuthenticated, signIn, loggedAccount, isLoading, signOut],
+        [isAuthenticated, create, loggedAccount, isLoading, signOut],
     );
     return (
         <AuthContext.Provider value={authContextData}>

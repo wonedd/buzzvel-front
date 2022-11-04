@@ -1,4 +1,4 @@
-import { Container } from '../../shared/home.styles';
+import { Container } from '../../shared/shared.styles';
 import { Form } from '../components/Form';
 
 export default function Home() {

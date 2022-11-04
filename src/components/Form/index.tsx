@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { Title } from '../../../shared/shared.styles';
 import { AuthContext } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 import { Button } from '../Button';
 import { Input } from '../Input';
-import { Container, Title } from './styles';
+import { Container } from './styles';
 
 interface FormData {
     linkedinUrl: string;
@@ -19,7 +20,7 @@ export function Form() {
     const { push } = useRouter();
     const { register, handleSubmit } = useForm();
     const [isLoading, setIsLoading] = useState(false);
-    const { signIn, isAuthenticated } = useContext(AuthContext);
+    const { create, isAuthenticated } = useContext(AuthContext);
 
     const onHandleSubmit = async (data: FormData) => {
         setIsLoading(true);
@@ -30,7 +31,7 @@ export function Form() {
                 name: data.name,
             });
 
-            await signIn({
+            await create({
                 id: response.data.id,
             });
 
@@ -38,10 +39,6 @@ export function Form() {
                 push('/qrcode');
             }
         } catch (err) {
-            console.log(
-                '🚀 ~ file: index.tsx ~ line 41 ~ onHandleSubmit ~ err',
-                err,
-            );
             if (err instanceof AxiosError) {
                 toast.error(err.response?.data.message);
             }

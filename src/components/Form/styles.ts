@@ -10,8 +10,3 @@ export const Container = styled.form`
 
     padding: 8px;
 `;
-
-export const Title = styled.h1`
-    align-self: center;
-    font-size: 1.5rem;
-`;

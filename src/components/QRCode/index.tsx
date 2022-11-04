@@ -1,8 +1,11 @@
 import { useQRCode } from 'next-qrcode';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 import { Container, QRBox, SubTitle, Title } from './styles';
 
 export function QRCode({ name }: { name: string | undefined }) {
     const { Image } = useQRCode();
+    const { token } = useContext(AuthContext);
 
     return (
         <Container>
@@ -10,7 +13,7 @@ export function QRCode({ name }: { name: string | undefined }) {
             <QRBox>
                 <SubTitle>Scan Me</SubTitle>
                 <Image
-                    text="https://buzzvel-front.vercel.app/Success"
+                    text={`https://buzzvel-front.vercel.app/Success?token=${token}`}
                     options={{
                         type: 'image/jpeg',
                         quality: 0.3,

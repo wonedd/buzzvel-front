@@ -56,7 +56,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         const { 'buzzvel.token': token } = parseCookies();
 
         if (token) {
-            api.get('/')
+            api.get(`/user/${token}`)
                 .then(response => {
                     setLoggedAccount(response.data);
                 })
@@ -80,14 +80,12 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
                     githubUrl,
                 });
 
-                const { user, token } = response.data;
+                const { token } = response.data;
 
                 setCookie(undefined, 'buzzvel.token', token, {
                     maxAge: 60 * 60 * 24 * 30, // 30 days
                     path: '/',
                 });
-
-                setLoggedAccount(user);
 
                 api.defaults.headers.common.Authorization = `Bearer ${token}`;
 

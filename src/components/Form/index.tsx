@@ -24,22 +24,24 @@ export function Form() {
     const onHandleSubmit = async (data: FormData) => {
         setIsLoading(true);
         try {
-            await api.post('/', {
+            const response = await api.post('/', {
                 linkedinUrl: data.linkedinUrl,
                 githubUrl: data.githubUrl,
                 name: data.name,
             });
 
             await signIn({
-                linkedinUrl: data.linkedinUrl,
-                githubUrl: data.githubUrl,
-                name: data.name,
+                id: response.data.id,
             });
 
             if (isAuthenticated) {
                 push('/qrcode');
             }
         } catch (err) {
+            console.log(
+                '🚀 ~ file: index.tsx ~ line 41 ~ onHandleSubmit ~ err',
+                err,
+            );
             if (err instanceof AxiosError) {
                 toast.error(err.response?.data.message);
             }

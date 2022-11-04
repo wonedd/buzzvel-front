@@ -21,9 +21,7 @@ type User = {
 };
 
 type ISignInData = {
-    name: string;
-    linkedinUrl: string;
-    githubUrl: string;
+    id: string;
 };
 
 interface AuthContextData {
@@ -52,56 +50,36 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
 
     const isAuthenticated = !!loggedAccount;
 
-    useEffect(() => {
-        const { 'buzzvel.token': token } = parseCookies();
+    const signIn = useCallback(async ({ id }: ISignInData) => {
+        try {
+            setIsLoading(true);
 
-        if (token) {
-            api.get(`/user/${token}`)
-                .then(response => {
-                    setLoggedAccount(response.data.user);
-                })
-                .catch(() => {
-                    toast.error(
-                        'Oops! Something went wrong. Please try again later.',
-                    );
-                    signOut();
-                });
+            const response = await api.post('sessions', {
+                id,
+            });
+
+            const { token } = response.data;
+
+            setCookie(undefined, 'buzzvel.token', token, {
+                maxAge: 60 * 60 * 24 * 30, // 30 days
+                path: '/',
+            });
+
+            setLoggedAccount(response.data.user);
+
+            api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+            toast.success('Your card is ready 🚀');
+
+            Router.push('/qrcode');
+        } catch (err) {
+            if (err instanceof AxiosError) {
+                toast.error(err.response?.data.message);
+            }
+        } finally {
+            setIsLoading(false);
         }
     }, []);
-
-    const signIn = useCallback(
-        async ({ name, linkedinUrl, githubUrl }: ISignInData) => {
-            try {
-                setIsLoading(true);
-
-                const response = await api.post('sessions', {
-                    name,
-                    linkedinUrl,
-                    githubUrl,
-                });
-
-                const { token } = response.data;
-
-                setCookie(undefined, 'buzzvel.token', token, {
-                    maxAge: 60 * 60 * 24 * 30, // 30 days
-                    path: '/',
-                });
-
-                api.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-                toast.success('Your card is ready 🚀');
-
-                Router.push('/qrcode');
-            } catch (err) {
-                if (err instanceof AxiosError) {
-                    toast.error(err.response?.data.message);
-                }
-            } finally {
-                setIsLoading(false);
-            }
-        },
-        [],
-    );
 
     const authContextData: AuthContextData = useMemo(
         () => ({

@@ -58,7 +58,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
         if (token) {
             api.get(`/user/${token}`)
                 .then(response => {
-                    setLoggedAccount(response.data);
+                    setLoggedAccount(response.data.user);
                 })
                 .catch(() => {
                     toast.error(

@@ -40,8 +40,6 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData);
 
-let authChannel: BroadcastChannel;
-
 export function signOut(): void {
     destroyCookie(undefined, 'buzzvel.token');
 
@@ -53,24 +51,6 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     const [isLoading, setIsLoading] = useState(false);
 
     const isAuthenticated = !!loggedAccount;
-
-    useEffect(() => {
-        try {
-            authChannel = new BroadcastChannel('auth');
-            authChannel.onmessage = message => {
-                switch (message.data) {
-                    case 'signOut':
-                        signOut();
-                        authChannel.close();
-                        break;
-                    default:
-                        break;
-                }
-            };
-        } catch (err) {
-            authChannel.close();
-        }
-    }, []);
 
     useEffect(() => {
         const { 'buzzvel.token': token } = parseCookies();

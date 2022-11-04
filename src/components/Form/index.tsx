@@ -36,7 +36,7 @@ export function Form() {
             });
 
             if (isAuthenticated) {
-                push('/qrcode');
+                push('/Qrcode');
             }
         } catch (err) {
             if (err instanceof AxiosError) {
